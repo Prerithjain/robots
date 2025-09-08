@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin-bots
+Disallow: /hidden-4f4b5c2e
+
+# Note: We really don't want you visiting /admin-bots or /hidden-4f4b5c2e
