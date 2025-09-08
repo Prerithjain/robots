@@ -138,6 +138,12 @@ app.get("/hidden-4f4b5c2e", (req, res) => {
         <div class="hiddenbox">
           <h2>Nothing to see here 👀</h2>
           <div>“Are you sure you're in the right place?”</div>
+          <div class="failbox">
+          <div class="gifbox">
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnlzZGJxenowbTU4Y2l6NTZqeDNsNWhibjJ0c2wyamI4dTB3eTg4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/YExAAySmC0I9u2TjKJ/giphy.gif" width="310" alt="Funny gif"/>
+          </div>
+          <a class="tryagain" href="/">Go Home</a>
+        </div>
         </div>
       </body>
     </html>
