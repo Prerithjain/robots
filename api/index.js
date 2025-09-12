@@ -1,58 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-const rateLimit = require("express-rate-limit");
 
 const app = express();
-app.set("trust proxy", 1);
+
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "..", "public")));
+app.use(express.static(path.join(__dirname, "..", "public"))); // Update this if needed
+
 
 const realFlag = "PhaseShift{robots_are_not_good_at_hiding_$6v6}";
 
-// ✅ Apply rate limiting (100 requests / 15 minutes per IP)
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100,
-  message: `
-    <html>
-      <head>
-        <title>Rate Limit Exceeded</title>
-        <style>
-          body {
-            background: #ffefef;
-            font-family: 'Orbitron', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-          }
-          .warnbox {
-            background: #fff5;
-            padding: 30px 40px;
-            border-radius: 20px;
-            box-shadow: 0 2px 15px #ff4444cc;
-            text-align: center;
-          }
-          h2 {
-            color: #a22;
-            margin-bottom: 15px;
-          }
-        </style>
-      </head>
-      <body>
-        <div class="warnbox">
-          <h2>⚠️ Slow down!</h2>
-          <p>You have made too many requests. Please wait and try again later.</p>
-        </div>
-      </body>
-    </html>
-  `,
-});
+app.get("/favicon.ico", (req, res) => res.status(204).end());
 
-app.use(limiter);
-
+// Main page
 app.get("/", (req, res) => {
   res.send(`
     <html>
@@ -115,6 +75,7 @@ app.get("/", (req, res) => {
   `);
 });
 
+// Various pages including hidden paths and flag delivery
 app.get("/admin-bots", (req, res) => {
   res.send(`
     <html>
@@ -156,6 +117,7 @@ app.get("/admin-bots", (req, res) => {
   `);
 });
 
+
 app.get("/hidden-4f4b5c2e", (req, res) => {
   res.send(`
     <html>
@@ -195,6 +157,7 @@ app.get("/hidden-4f4b5c2e", (req, res) => {
     </html>
   `);
 });
+
 
 app.get("/SecretPath-toFlag", (req, res) => {
   res.send(`
@@ -237,7 +200,8 @@ app.get("/SecretPath-toFlag", (req, res) => {
   `);
 });
 
-app.get(["/wrong-path1", "/hidden-4f4b5c2e", "/notallowed"], (req, res) => {
+
+app.get(["/wrong-path1", "/notallowed"], (req, res) => {
   res.send(`
     <html>
       <head>
@@ -296,6 +260,13 @@ app.get(["/wrong-path1", "/hidden-4f4b5c2e", "/notallowed"], (req, res) => {
       </body>
     </html>
   `);
+});
+
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
 
 module.exports = app;
